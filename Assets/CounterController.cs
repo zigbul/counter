@@ -1,15 +1,22 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CounterController : MonoBehaviour
 {
-    [SerializeField] private Text _counterText;
-    private int _counter = 0;
-    private bool _isCounting = false;
-    private float _waitingTime = 0.5f;
+    [SerializeField] private float _waitingTime = 0.5f;
+    [SerializeField] private CounterView _counterView;
 
-    void Update()
+    private int _counterValue = 0;
+    private bool _isCounting = false;
+    private bool isWorking = true;
+    private static WaitForSeconds _waitTime;
+
+    private void Start()
+    {
+        _waitTime = new WaitForSeconds(_waitingTime);
+    }
+
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -26,13 +33,14 @@ public class CounterController : MonoBehaviour
         }
     }
 
-    IEnumerator CountCoroutine()
+    private IEnumerator CountCoroutine()
     {
-        while (true)
+        while (isWorking)
         {
-            _counter++;
-            _counterText.text = "Counter: " + _counter;
-            yield return new WaitForSeconds(_waitingTime);
+            _counterValue++;
+            _counterView.UpdateCounterText(_counterValue);
+
+            yield return _waitTime;
         }
     }
 }
