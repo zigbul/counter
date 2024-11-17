@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,8 +9,9 @@ public class Counter : MonoBehaviour
     private int _count = 0;
     private bool _isCounting = false;
     private WaitForSeconds _waitTime;
+    private Coroutine _currentCoroutine;
 
-    public int Count => _count;
+    public event Action<int> OnCountChanged;
 
     private void Start()
     {
@@ -24,11 +26,11 @@ public class Counter : MonoBehaviour
 
             if (_isCounting)
             {
-                StartCoroutine(CountCoroutine());
+                _currentCoroutine = StartCoroutine(CountCoroutine());
             }
             else
             {
-                StopCoroutine(CountCoroutine());
+                StopCoroutine(_currentCoroutine);
             }
         }
     }
@@ -38,6 +40,7 @@ public class Counter : MonoBehaviour
         while (_isCounting)
         {
             _count++;
+            OnCountChanged?.Invoke(_count);
 
             yield return _waitTime;
         }
