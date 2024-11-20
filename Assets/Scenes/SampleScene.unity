@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _counter: {fileID: 51298271}
-  _counterText: {fileID: 51298268}
+  _textValue: {fileID: 51298268}
 --- !u!114 &51298271
 MonoBehaviour:
   m_ObjectHideFlags: 0
