@@ -11,7 +11,7 @@ public class Counter : MonoBehaviour
     private WaitForSeconds _waitTime;
     private Coroutine _currentCoroutine;
 
-    public event Action<int> OnCountChanged;
+    public event Action<int> CountChanged;
 
     private void Start()
     {
@@ -40,7 +40,7 @@ public class Counter : MonoBehaviour
         while (_isCounting)
         {
             _count++;
-            OnCountChanged?.Invoke(_count);
+            CountChanged?.Invoke(_count);
 
             yield return _waitTime;
         }

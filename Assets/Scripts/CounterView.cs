@@ -4,20 +4,20 @@ using UnityEngine;
 public class CounterView : MonoBehaviour
 {
     [SerializeField] private Counter _counter;
-    [SerializeField] private TextMeshProUGUI _counterText;
+    [SerializeField] private TextMeshProUGUI _textValue;
 
     private void OnEnable()
     {
-        _counter.OnCountChanged += UpdateCounterText;
+        _counter.CountChanged += UpdateTextValue;
     }
 
     private void OnDisable()
     {
-        _counter.OnCountChanged -= UpdateCounterText;
+        _counter.CountChanged -= UpdateTextValue;
     }
 
-    private void UpdateCounterText(int newCount)
+    private void UpdateTextValue(int newCount)
     {
-        _counterText.text = $"Counter: {newCount}";
+        _textValue.text = $"Counter: {newCount}";
     }
 }
